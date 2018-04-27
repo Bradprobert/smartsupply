@@ -16,7 +16,7 @@ export default class SplashScreen extends Component {
         });
         await setTimeout(() => {
             this.setState({appLoaded: true})
-        }, 3000);
+        }, 2500);
         this.setState({fontLoaded: true})
     }
 
