@@ -37,7 +37,7 @@ export default class BarcodeScannerModal extends Component {
                     {hasCameraPermission === false ?
                         <Text>No access to camera</Text> : null}
                     <BarCodeScanner
-                        onBarCodeRead={this._handleBarCodeRead}
+                        onBarCodeRead={this.handleBarCodeRead}
                         style={StyleSheet.absoluteFill}
                     />
                     <TouchableHighlight
