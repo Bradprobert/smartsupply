@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Flour",
+    "remaining": 0.5
+  },
+  {
+    "id": 2,
+    "name": "Sugar",
+    "remaining": 0.5
+  },
+  {
+    "id": 3,
+    "name": "Dog Food",
+    "remaining": 0.1
+  },
+  {
+    "id": 4,
+    "name": "Cookies",
+    "remaining": 0.7
+  },
+  {
+    "id": 5,
+    "name": "Lucky Charms",
+    "remaining": 0.2
+  },
+  {
+    "id": 6,
+    "name": "Macaroni Noodles",
+    "remaining": 0.6
+  }
+]
