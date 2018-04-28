@@ -28,7 +28,6 @@ export default class BarcodeScannerModal extends Component {
 
     render() {
         const {hasCameraPermission} = this.state;
-        console.log(hasCameraPermission)
         return (
             <Modal isVisible={this.state.visible}>
                 <View style={styles.modalContent}>
@@ -80,6 +79,7 @@ const styles = StyleSheet.create({
     },
     barcodeScanner: {
         height: 400,
+        width: 400,
         margin: 12,
     },
 });
