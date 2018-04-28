@@ -1,20 +1,25 @@
 import React, {Component} from 'react';
-import {Modal, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import {BarCodeScanner, Permissions} from "expo";
+import Modal from 'react-native-modal'
+import {colors} from "../constants/colors";
 
 export default class BarcodeScannerModal extends Component {
     state = {
-        modalVisible: this.props.modalVisible,
-        hasCameraPermission: null
+        hasCameraPermission: null,
+        visible: this.props.visible
     };
 
-    async componentWillMount() {
-        const {status} = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({hasCameraPermission: status === 'granted'});
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.visible !== prevState.visible) {
+            return {visible: nextProps.visible}
+        }
+        return null
     }
 
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+    async componentDidMount() {
+        const {status} = await Permissions.askAsync(Permissions.CAMERA);
+        this.setState({hasCameraPermission: status === 'granted'});
     }
 
     handleBarCodeRead = ({type, data}) => {
@@ -23,29 +28,58 @@ export default class BarcodeScannerModal extends Component {
 
     render() {
         const {hasCameraPermission} = this.state;
+        console.log(hasCameraPermission)
         return (
-            <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {
-                    alert('Modal has been closed.');
-                }}>
-                <View style={{marginTop: 22}}>
+            <Modal isVisible={this.state.visible}>
+                <View style={styles.modalContent}>
                     {hasCameraPermission === null ?
                         <Text>Requesting for camera permission</Text> : null}
                     {hasCameraPermission === false ?
-                        <Text>No access to camera</Text> : null}
-                    <BarCodeScanner
-                        onBarCodeRead={this.handleBarCodeRead}
-                        style={StyleSheet.absoluteFill}
-                    />
-                    <TouchableHighlight
-                        onPress={this.setModalVisible(!this.state.modalVisible)}>
-                        <Text>close modal</Text>
-                    </TouchableHighlight>
+                        <Text>No access to camera</Text> :
+                        (<View style={{flex: 1, height: 50}}>
+                            <BarCodeScanner onBarCodeRead={this.handleBarCodeRead} style={styles.barcodeScanner}/>
+                        </View>)}
+                    <TouchableOpacity onPress={() => {
+                        this.setState({visible: false})
+                    }}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>close</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </Modal>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        backgroundColor: colors.primaryGreen,
+        padding: 12,
+        margin: 16,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        borderRadius: 4,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    buttonText: {
+        color: colors.white
+    },
+    modalContent: {
+        backgroundColor: colors.white,
+        padding: 22,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 4,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    barcodeScanner: {
+        height: 400,
+        margin: 12,
+    },
+});
