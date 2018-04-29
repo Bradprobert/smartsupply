@@ -1,55 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, Dimensions, TouchableOpacity, View} from 'react-native';
 import {BarCodeScanner, Permissions} from "expo";
 import Modal from 'react-native-modal'
 import {colors} from "../constants/colors";
-
-export default class BarcodeScannerModal extends Component {
-    state = {
-        hasCameraPermission: null,
-        visible: this.props.visible
-    };
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.visible !== prevState.visible) {
-            return {visible: nextProps.visible}
-        }
-        return null
-    }
-
-    async componentDidMount() {
-        const {status} = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({hasCameraPermission: status === 'granted'});
-    }
-
-    handleBarCodeRead = ({type, data}) => {
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    }
-
-    render() {
-        const {hasCameraPermission} = this.state;
-        return (
-            <Modal isVisible={this.state.visible}>
-                <View style={styles.modalContent}>
-                    {hasCameraPermission === null ?
-                        <Text>Requesting for camera permission</Text> : null}
-                    {hasCameraPermission === false ?
-                        <Text>No access to camera</Text> :
-                        (<View style={{flex: 1, height: 50}}>
-                            <BarCodeScanner onBarCodeRead={this.handleBarCodeRead} style={styles.barcodeScanner}/>
-                        </View>)}
-                    <TouchableOpacity onPress={() => {
-                        this.setState({visible: false})
-                    }}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>close</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </Modal>
-        );
-    }
-}
 
 const styles = StyleSheet.create({
     container: {
@@ -78,8 +31,69 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(0, 0, 0, 0.1)',
     },
     barcodeScanner: {
-        height: 400,
-        width: 400,
         margin: 12,
     },
 });
+
+export default class BarcodeScannerModal extends Component {
+    state = {
+        hasCameraPermission: null,
+        visible: this.props.visible,
+        barcodeFound: false,
+    };
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.visible !== prevState.visible) {
+            return {visible: nextProps.visible}
+        }
+        return null
+    }
+
+    async componentDidMount() {
+        const {status} = await Permissions.askAsync(Permissions.CAMERA);
+        this.setState({hasCameraPermission: status === 'granted'});
+    }
+
+    handleBarCodeRead = ({type, data}) => {
+        if (this.state.barcodeFound === false) {
+            this.setState({barcodeFound: true});
+            alert(data);
+        }
+    }
+
+    calculateScannerSize = () => {
+        const {height, width} = Dimensions.get('window');
+        const calcHeight = height - (22 - 12 - 16 - 12) * 2- 200;
+        const calcWidth = width - (22 - 12) * 2 - 75;
+        console.log('height: ' + calcHeight + '\nwidth: ' + calcWidth);
+        return {
+            height: calcHeight,
+            width: calcWidth,
+        }
+    }
+
+    render() {
+        const {hasCameraPermission} = this.state;
+
+        return (
+            <Modal isVisible={this.state.visible}>
+                <View style={styles.modalContent}>
+                    {hasCameraPermission === null ?
+                        <Text>Requesting for camera permission</Text> : null}
+                    {hasCameraPermission === false ?
+                        <Text>No access to camera</Text> :
+                        (<View>
+                            <BarCodeScanner onBarCodeRead={this.handleBarCodeRead} style={this.calculateScannerSize()}/>
+                        </View>)}
+                    <TouchableOpacity onPress={() => {
+                        this.setState({visible: false})
+                    }}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>close</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
+        );
+    }
+}
