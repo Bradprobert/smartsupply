@@ -14,10 +14,7 @@ export default class SplashScreen extends Component {
         await Font.loadAsync({
             'poiret-one-regular': require('../assets/fonts/Poiret_One/PoiretOne-Regular.ttf')
         });
-        await setTimeout(() => {
-            this.setState({appLoaded: true})
-        }, 2500);
-        this.setState({fontLoaded: true})
+        this.setState({fontLoaded: true, appLoaded: true})
     }
 
 

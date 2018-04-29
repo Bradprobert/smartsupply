@@ -1,7 +1,8 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
+import items from './items'
+import itemFilter from './itemFilter'
 
-import devices from './devices_reducer'
-
-export default combineReducers({
-    devices
-});
+export default rootReducer = combineReducers({
+    items,
+    itemFilter
+})
