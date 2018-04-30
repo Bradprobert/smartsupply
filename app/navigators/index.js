@@ -13,6 +13,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import FoodScreen from "../screens/FoodScreen";
 import LoginScreen from "../screens/LoginScreen";
 import GroceryListScreen from "../screens/GroceryListScreen";
+import ScanBarcodeScreen from "../screens/ScanBarcodeScreen";
 
 export const MainNavigator = StackNavigator({
         loginFlow: {
@@ -53,11 +54,19 @@ export const MainNavigator = StackNavigator({
                                 tabBarLabel: 'Grocery List',
                             }
                         },
-                        foodTab: {
-                            screen: FoodScreen,
-                            navigationOptions: {
-                                tabBarLabel: 'My Food',
+                        screen: StackNavigator({
+                            foodTab: {
+                                screen: FoodScreen,
+                                navigationOptions: {
+                                    tabBarLabel: 'My Food',
+                                }
+                            },
+                            barcodeScan: {
+                                screen: ScanBarcodeScreen,
                             }
+                        }),
+                        navigationOptions: {
+                            header: null
                         },
                         settings: {
                             screen: SettingsScreen,

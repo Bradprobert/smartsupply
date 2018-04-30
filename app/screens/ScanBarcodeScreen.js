@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class BarcodeScannerModal extends Component {
+export default class ScanBarcodeScreen extends Component {
     state = {
         hasCameraPermission: null,
         barcodeFound: false,
@@ -30,8 +30,8 @@ export default class BarcodeScannerModal extends Component {
 
     calculateScannerSize = () => {
         const {height, width} = Dimensions.get('window');
-        const calcHeight = height - (22 - 12 - 16 - 12) * 2 - 200;
-        const calcWidth = width - (22 - 12) * 2 - 75;
+        const calcHeight = height - (16 + 12) * 2 - 200;
+        const calcWidth = width - (12) * 2 - 75;
         console.log('height: ' + calcHeight + '\nwidth: ' + calcWidth);
         return {
             height: calcHeight,

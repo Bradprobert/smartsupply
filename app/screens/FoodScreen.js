@@ -11,7 +11,8 @@ export default class FoodScreen extends Component {
     }
 
     showBarcodeScanner = () => {
-        this.setState({scanBarcode: true})
+        //this.setState({scanBarcode: true})
+        this.props.navigation.navigate('barcodeScan')
     }
 
     render() {
