@@ -14,6 +14,8 @@ export default class ScanBarcodeScreen extends Component {
     state = {
         hasCameraPermission: null,
         barcodeFound: false,
+        scannerHeight: 0,
+        scannerWidth: 0,
     };
 
     async componentDidMount() {
@@ -28,29 +30,26 @@ export default class ScanBarcodeScreen extends Component {
         }
     }
 
-    calculateScannerSize = () => {
-        const {height, width} = Dimensions.get('window');
-        const calcHeight = height - (16 + 12) * 2 - 200;
-        const calcWidth = width - (12) * 2 - 75;
-        console.log('height: ' + calcHeight + '\nwidth: ' + calcWidth);
-        return {
-            height: calcHeight,
-            width: calcWidth,
-        }
+    calculateScannerSize = (event) => {
+        const {x, y, height, width} = event.nativeEvent.layout;
+        this.setState({
+            scannerHeight: height,
+            scannerWidth: width,
+        })
     }
 
     render() {
         const {hasCameraPermission} = this.state;
 
         return (
-            <View style={styles.container}>
+            <View onLayout={(event) => this.calculateScannerSize(event)} style={styles.container}>
                 {hasCameraPermission === null ?
                     <Text>Requesting for camera permission</Text> : null}
                 {hasCameraPermission === false ?
-                    <Text>No access to camera</Text> :
-                    (<View>
-                        <BarCodeScanner onBarCodeRead={this.handleBarCodeRead} style={this.calculateScannerSize()}/>
-                    </View>)}
+                    <Text>No access to camera</Text> : <BarCodeScanner onBarCodeRead={this.handleBarCodeRead} style={{
+                        height: this.state.scannerHeight,
+                        width: this.state.scannerWidth
+                    }}/>}
             </View>
         );
     }
