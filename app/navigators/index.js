@@ -9,18 +9,18 @@ import {loginFlow} from "./LoginFlow";
 
 export const MainNavigator = StackNavigator({
     loginFlow: loginFlow,
-        mainFlow: {
-            screen: homeTabs,
-            navigationOptions: {
-                title: 'Smart Supply',
-                headerStyle: {
-                    backgroundColor: colors.primaryGreen,
-                },
-                headerTitleStyle: {
-                    color: colors.white,
-                    fontFamily: fonts.title,
-                    fontSize: fontSizes.title,
-                },
+    mainFlow: {
+        screen: homeTabs,
+        navigationOptions: {
+            title: 'Smart Supply',
+            headerStyle: {
+                backgroundColor: colors.primaryGreen,
+            },
+            headerTitleStyle: {
+                color: colors.white,
+                fontFamily: fonts.title,
+                fontSize: fontSizes.title,
             },
         },
+    },
 });

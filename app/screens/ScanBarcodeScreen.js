@@ -26,7 +26,7 @@ export default class ScanBarcodeScreen extends Component {
     handleBarCodeRead = ({type, data}) => {
         if (this.state.barcodeFound === false) {
             this.setState({barcodeFound: true});
-            alert(data);
+            alert(data)
         }
     }
 
@@ -46,10 +46,24 @@ export default class ScanBarcodeScreen extends Component {
                 {hasCameraPermission === null ?
                     <Text>Requesting for camera permission</Text> : null}
                 {hasCameraPermission === false ?
-                    <Text>No access to camera</Text> : <BarCodeScanner onBarCodeRead={this.handleBarCodeRead} style={{
-                        height: this.state.scannerHeight,
-                        width: this.state.scannerWidth
-                    }}/>}
+                    <Text>No access to camera</Text> :
+                    <View style={styles.container}>
+                        <View style={{
+                            ...StyleSheet.absoluteFillObject,
+                            borderBottomColor: 'black',
+                            borderBottomWidth: 3,
+                            height: this.state.scannerHeight / 2,
+                            width: this.state.scannerWidth,
+                            zIndex: 2,
+                            backgroundColor: 'transparent'
+                        }}
+                        />
+                        <BarCodeScanner onBarCodeRead={this.handleBarCodeRead} style={{
+                            height: this.state.scannerHeight,
+                            width: this.state.scannerWidth,
+                        }}/>
+                    </View>
+                }
             </View>
         );
     }
