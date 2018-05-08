@@ -27,7 +27,7 @@ const LoginForm = (props) => {
           <Text>LOGIN</Text>
         </TouchableOpacity>
       </View>
-        <TouchableOpacity style={styles.button} color={colors.primaryGreen}
+        <TouchableOpacity style={styles.quickButton} color={colors.primaryGreen}
                           onPress={props.onQuickLogin}>
             <Text>QUICK LOGIN</Text>
         </TouchableOpacity>

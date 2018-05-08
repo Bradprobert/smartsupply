@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, WebView, StyleSheet, ListView } from 'react-native';
+import { View, WebView, StyleSheet, FlatList } from 'react-native';
 import ActionButton from 'react-native-action-button';
 
 import { colors } from '../constants/colors';
@@ -29,11 +29,11 @@ export default class FoodScreen extends Component {
 
         return (
           <View style={styles.container}>
-              <ListView
-                dataSource={new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(testData)}
-                renderRow={(item) => <ItemCard itemName={item.name}
-                                               walmartPrice={item.walmartPrice}
-                                               amazonPrice={item.amazonPrice}/>}/>
+              <FlatList
+                data={testData}
+                renderItem={({ item }) => <ItemCard itemName={item.name}
+                                                    walmartPrice={item.walmartPrice}
+                                                    amazonPrice={item.amazonPrice}/>}/>
               <ActionButton
                 buttonColor={colors.primaryGreen}
                 onPress={this.showBarcodeScanner}
