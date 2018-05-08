@@ -6,13 +6,15 @@ import {fonts} from "../constants/fonts";
 import {fontSizes} from "../constants/fontSizes";
 import {homeTabs} from "./HomeTabs";
 import {loginFlow} from "./LoginFlow";
+import strings from '../constants/strings';
 
+const brandName = 'Smart Supply';
 export const MainNavigator = StackNavigator({
     loginFlow: loginFlow,
     mainFlow: {
         screen: homeTabs,
         navigationOptions: {
-            title: 'Smart Supply',
+            title: strings.brandName,
             headerStyle: {
                 backgroundColor: colors.primaryGreen,
             },

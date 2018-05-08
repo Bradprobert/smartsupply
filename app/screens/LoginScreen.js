@@ -16,6 +16,7 @@ export default class LoginScreen extends Component {
           alert('empty state');
         } else {
             firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
+                this.setState({ password: '' });
                 this.props.navigation.navigate('mainFlow');
             }).catch(function (error) {
                 // Handle Errors here.
@@ -40,6 +41,7 @@ export default class LoginScreen extends Component {
           alert('empty state');
         } else {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
+                this.setState({ password: '' });
                 this.props.navigation.navigate('mainFlow');
             }).catch(function (error) {
                 // Handle Errors here.
@@ -59,11 +61,16 @@ export default class LoginScreen extends Component {
 
     };
 
+    onQuickLogin = () => {
+        this.props.navigation.navigate('mainFlow');
+    };
+
     render() {
         return (
           <LoginForm onPressLogin={this.onPressLogin} onPressSignUp={this.onPressSignUp}
                      onChangeEmail={(email) => this.setState({ email: email })}
-                     onChangePassword={(password) => this.setState({ password: password })}/>
+                     onChangePassword={(password) => this.setState({ password: password })}
+                     onQuickLogin={this.onQuickLogin}/>
         );
     }
 }
