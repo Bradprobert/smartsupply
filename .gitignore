@@ -2,3 +2,7 @@ node_modules/**/*
 .expo/*
 .idea/*
 npm-debug.*
+firebaseconfig.js
+package-lock.json
+database.rules.json
+
