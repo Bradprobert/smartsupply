@@ -7,7 +7,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    brandName: {
+    title: {
         color: '#FFFFFF',
         fontSize: 48,
         fontFamily: 'poiret-one-regular',

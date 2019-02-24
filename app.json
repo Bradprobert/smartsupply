@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "smartsupply",
+    "name": "simplegrocery",
     "description": "This project is really great.",
-    "slug": "smartsupply",
+    "slug": "simplegrocery",
     "privacy": "public",
     "sdkVersion": "27.0.0",
     "platforms": ["ios", "android"],
@@ -12,7 +12,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#27AE60"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

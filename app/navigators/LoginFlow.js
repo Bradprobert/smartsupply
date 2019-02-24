@@ -1,10 +1,11 @@
-import {StackNavigator} from "react-navigation";
+import { createStackNavigator } from 'react-navigation';
 
 import SplashScreen from "../screens/SplashScreen";
 import LoginScreen from "../screens/LoginScreen";
+import AccountSetupScreen from '../screens/AccountSetupScreen';
 
 export const loginFlow = {
-    screen: StackNavigator({
+    screen: createStackNavigator({
         splash: {
             screen: SplashScreen,
             navigationOptions: {
@@ -14,10 +15,15 @@ export const loginFlow = {
         login: {
             screen: LoginScreen,
             navigationOptions: {
-                header: null
+                header: null,
             }
         },
-        //forgotPassword: {screen: ForgotPasswordScreen}
+        accountSetup: {
+            screen: AccountSetupScreen,
+            navigationOptions: {
+                header: null,
+            }
+        }
     }),
     navigationOptions: {
         header: null,

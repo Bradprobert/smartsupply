@@ -9,7 +9,7 @@ import {colors} from "../../constants/colors";
 const Splash = props => {
     return (
         <View style={styles.container}>
-            {props.fontLoaded ? <Text style={styles.brandName}>Smart Supply</Text> : null}
+            {props.fontLoaded ? <Text style={styles.title}>Smart Supply</Text> : null}
             <Progress.CircleSnail size={50} indeterminate={true} color={colors.white}/>
         </View>
     );

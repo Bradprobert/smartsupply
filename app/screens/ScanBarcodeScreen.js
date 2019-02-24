@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Dimensions, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
+import * as firebase from 'firebase';
 
 const styles = StyleSheet.create({
     container: {
@@ -30,13 +31,42 @@ export default class ScanBarcodeScreen extends Component {
             fetch(upcLookup)
               .then((response) => response.json())
               .then((responseJson) => {
-                  console.log(responseJson.items[0].brand);
-                  console.log(responseJson.items[0].description);
+                  const newItem = responseJson.items[0];
+                  const itemDetails = {
+                      upc: newItem.upc,
+                      name: newItem.title,
+                      description: newItem.description,
+                      images: newItem.images
+                  };
+                  this.addToDatabase(itemDetails);
               })
               .catch((error) => {
                   console.error(error);
               });
         }
+    };
+
+    addToDatabase = (item) => {
+        const userId = firebase.auth().currentUser.uid;
+        const itemsRef = firebase.database()
+          .ref('users/' + userId + '/items');
+        itemsRef.orderByChild('upc')
+          .equalTo(item.upc)
+          .once('value', snapshot => {
+              if (snapshot.val()) {
+                  alert('item already added');
+                  this.props.navigation.navigate('foodTab');
+              } else {
+                  itemsRef.push(item, error => {
+                      if (error) {
+                          alert('error adding item');
+                      } else {
+                          this.props.navigation.navigate('foodTab');
+                      }
+                  });
+              }
+          });
+
     };
 
 
@@ -61,11 +91,11 @@ export default class ScanBarcodeScreen extends Component {
                     <View style={{
                         ...StyleSheet.absoluteFillObject,
                         borderBottomColor: 'black',
+                        zIndex: 2,
+                        backgroundColor: 'transparent',
                         borderBottomWidth: 3,
                         height: this.state.scannerHeight / 2,
-                        width: this.state.scannerWidth,
-                        zIndex: 2,
-                        backgroundColor: 'transparent'
+                        width: this.state.scannerWidth
                     }}
                     />
                     <BarCodeScanner onBarCodeRead={this.handleBarCodeRead} style={{

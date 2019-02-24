@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../constants/colors';
+import { constants } from '../../constants/constants';
 
 const styles = StyleSheet.create({
     container: {
@@ -8,10 +9,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor: colors.primaryGreen
     },
-    brandContainer: {
+    titleContainer: {
         alignItems: 'center',
     },
-    brandName: {
+    title: {
         color: '#FFFFFF',
         fontSize: 48,
         fontFamily: 'poiret-one-regular',
@@ -21,7 +22,8 @@ const styles = StyleSheet.create({
         padding: 12,
         margin: 12,
         borderColor: colors.lightGrey,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
+        borderRadius: constants.BORDER_RADIUS
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -32,13 +34,15 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         padding: 12,
         margin: 12,
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: constants.BORDER_RADIUS
     },
     quickButton: {
         backgroundColor: colors.white,
         padding: 12,
         margin: 12,
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: constants.BORDER_RADIUS
     }
 });
 

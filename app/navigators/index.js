@@ -1,5 +1,5 @@
 import React from "react";
-import {StackNavigator} from "react-navigation";
+import { createStackNavigator } from 'react-navigation';
 
 import {colors} from "../constants/colors";
 import {fonts} from "../constants/fonts";
@@ -9,7 +9,7 @@ import {loginFlow} from "./LoginFlow";
 import strings from '../constants/strings';
 
 const brandName = 'Smart Supply';
-export const MainNavigator = StackNavigator({
+export const MainNavigator = createStackNavigator({
     loginFlow: loginFlow,
     mainFlow: {
         screen: homeTabs,
@@ -25,4 +25,8 @@ export const MainNavigator = StackNavigator({
             },
         },
     },
+}, {
+    navigationOptions: {
+        headerLeft: null
+    }
 });

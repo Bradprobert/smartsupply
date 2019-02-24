@@ -3,14 +3,24 @@ import { colors } from '../../constants/colors';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        paddingHorizontal: 10,
-        margin: 12,
-        borderColor: 'black',
-        borderWidth: 1
+        flexDirection: 'row',
+        alignItems: 'center',
+        elevation: 1,
+        padding: 12,
+        backgroundColor: colors.white
     },
-    name: {}
+    swipeContainer: {
+        margin: '2%',
+    },
+    name: {
+        flex: 1,
+        flexWrap: 'wrap',
+        fontFamily: 'raleway-bold'
+    },
+    image: {
+        height: 50,
+        width: 50
+    },
 });
 
 export default styles;

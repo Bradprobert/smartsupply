@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Font} from 'expo';
-import {NavigationActions} from 'react-navigation';
+import * as firebase from 'firebase';
 
 import Splash from "../components/splash";
 
@@ -12,25 +12,23 @@ export default class SplashScreen extends Component {
 
     async componentDidMount() {
         await Font.loadAsync({
-            'poiret-one-regular': require('../assets/fonts/Poiret_One/PoiretOne-Regular.ttf')
+            'poiret-one-regular': require('../assets/fonts/Poiret_One/PoiretOne-Regular.ttf'),
+            'raleway-regular': require('../assets/fonts/Raleway/Raleway-Regular.ttf'),
+            'raleway-bold': require('../assets/fonts/Raleway/Raleway-Bold.ttf'),
         });
-        this.setState({fontLoaded: true, appLoaded: true})
+        this.setState({ fontLoaded: true });
+        this.signInUser();
     }
 
-
-    componentDidUpdate() {
-        if (this.state.appLoaded) {
-            this._navigateTo('login')
+    signInUser = () => {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            this.props.navigation.navigate('mainFlow');
+        } else {
+            this.props.navigation.navigate('login');
         }
-    }
+    };
 
-    _navigateTo = (routeName: string) => {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({routeName})]
-        })
-        this.props.navigation.dispatch(resetAction)
-    }
 
     render() {
         return (

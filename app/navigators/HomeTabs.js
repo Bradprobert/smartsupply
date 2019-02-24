@@ -1,5 +1,5 @@
 import React from "react";
-import {StackNavigator, TabNavigator} from "react-navigation";
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import {colors} from "../constants/colors";
@@ -8,14 +8,14 @@ import FoodScreen from "../screens/FoodScreen";
 import GroceryListScreen from "../screens/GroceryListScreen";
 import ScanBarcodeScreen from "../screens/ScanBarcodeScreen";
 
-export const homeTabs = TabNavigator({
+export const homeTabs = createBottomTabNavigator({
     groceryListTab: {
         screen: GroceryListScreen,
         navigationOptions: {
             tabBarLabel: 'Grocery List',
         }
     },
-    screen: StackNavigator({
+    screen: createStackNavigator({
         foodTab: {
             screen: FoodScreen,
             navigationOptions: {
